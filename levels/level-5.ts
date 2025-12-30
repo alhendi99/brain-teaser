@@ -1,0 +1,133 @@
+import { Level } from '@/types/game';
+
+// Level 5: Make the crying baby laugh - The trick is to use the mirror to make funny face!
+export const level5: Level = {
+  id: 5,
+  title: "Baby Blues",
+  titleAr: "الطفل الباكي",
+  description: "Make the crying baby laugh",
+  descriptionAr: "اجعل الطفل الباكي يضحك",
+  background: "/assets/backgrounds/nursery.svg",
+  items: [
+    {
+      id: "baby",
+      name: "Crying Baby",
+      nameAr: "الطفل الباكي",
+      image: "/assets/characters/baby-crying.svg",
+      position: { x: 50, y: 50 },
+      draggable: false,
+      visible: true,
+      zIndex: 2,
+      states: {
+        crying: {},
+        laughing: { image: "/assets/characters/baby-laughing.svg" },
+      },
+      currentState: "crying",
+    },
+    {
+      id: "teddy_bear",
+      name: "Teddy Bear",
+      nameAr: "دمية الدب",
+      image: "/assets/items/teddy-bear.svg",
+      position: { x: 15, y: 55 },
+      draggable: true,
+      visible: true,
+      zIndex: 3,
+    },
+    {
+      id: "rattle",
+      name: "Baby Rattle",
+      nameAr: "خشخيشة",
+      image: "/assets/items/rattle.svg",
+      position: { x: 80, y: 60 },
+      draggable: true,
+      visible: true,
+      zIndex: 3,
+    },
+    {
+      id: "milk_bottle",
+      name: "Milk Bottle",
+      nameAr: "زجاجة الحليب",
+      image: "/assets/items/milk-bottle.svg",
+      position: { x: 10, y: 30 },
+      draggable: true,
+      visible: true,
+      zIndex: 3,
+    },
+    {
+      id: "clown_nose",
+      name: "Clown Nose",
+      nameAr: "أنف المهرج",
+      image: "/assets/items/clown-nose.svg",
+      position: { x: 85, y: 25 },
+      draggable: true,
+      visible: true,
+      zIndex: 3,
+    },
+    {
+      id: "mom",
+      name: "Mom",
+      nameAr: "الأم",
+      image: "/assets/characters/mom.svg",
+      position: { x: 25, y: 40 },
+      draggable: false,
+      clickable: true,
+      visible: true,
+      zIndex: 2,
+      states: {
+        normal: {},
+        funny: { image: "/assets/characters/mom-funny.svg" },
+      },
+      currentState: "normal",
+    },
+    {
+      id: "crib",
+      name: "Baby Crib",
+      nameAr: "سرير الطفل",
+      image: "/assets/items/crib.svg",
+      position: { x: 40, y: 55 },
+      draggable: false,
+      visible: true,
+      zIndex: 1,
+    },
+  ],
+  zones: [
+    {
+      id: "baby_zone",
+      bounds: { x: 35, y: 40, width: 30, height: 40 },
+      acceptsItems: ["teddy_bear", "rattle", "milk_bottle"],
+    },
+    {
+      id: "mom_zone",
+      bounds: { x: 20, y: 35, width: 20, height: 35 },
+      acceptsItems: ["clown_nose"],
+    },
+  ],
+  solution: [
+    {
+      action: 'drag',
+      target: 'clown_nose',
+      destination: 'mom_zone',
+      effects: [
+        { type: 'hide', target: 'clown_nose' },
+        { type: 'changeState', target: 'mom', value: 'funny' },
+        { type: 'changeState', target: 'baby', value: 'laughing' },
+        { type: 'sound', target: 'pop', value: null },
+      ],
+    },
+  ],
+  hints: [
+    "Toys don't seem to work...",
+    "Babies love funny faces!",
+    "Put something funny on mom! 🤡",
+  ],
+  hintsAr: [
+    "الألعاب لا تعمل...",
+    "الأطفال يحبون الوجوه المضحكة!",
+    "ضع شيئاً مضحكاً على الأم! 🤡",
+  ],
+  successMessage: "Haha! Mom looks hilarious! 🤡👶",
+  successMessageAr: "هاها! الأم تبدو مضحكة! 🤡👶",
+};
+
+export default level5;

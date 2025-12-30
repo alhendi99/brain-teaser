@@ -1,0 +1,35 @@
+{
+  "name": "brain-puzzle-game",
+  "version": "1.0.0",
+  "description": "Brain Puzzle: Tricky Quest Clone - A creative puzzle game",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build",
+    "build:cordova": "npm run export && cp -r out/* cordova/www/ && cp public/cordova-init.js cordova/www/ && cd cordova && cordova build android",
+    "build:cordova:release": "npm run export && cp -r out/* cordova/www/ && cp public/cordova-init.js cordova/www/ && cd cordova && cordova build android --release",
+    "build:cordova:debug": "npm run export && cp -r out/* cordova/www/ && cp public/cordova-init.js cordova/www/ && cd cordova && cordova run android"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/utilities": "^3.2.2",
+    "@types/howler": "^2.2.12",
+    "framer-motion": "^11.15.0",
+    "howler": "^2.2.4",
+    "next": "^14.2.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^5.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.17",
+    "@types/react-dom": "^18.3.5",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.7.2"
+  }
+}

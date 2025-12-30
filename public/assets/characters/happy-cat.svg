@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Body -->
+  <ellipse cx="40" cy="55" rx="25" ry="20" fill="#FFA500"/>
+  
+  <!-- Head -->
+  <circle cx="40" cy="28" r="20" fill="#FFA500"/>
+  
+  <!-- Ears -->
+  <polygon points="25,15 20,0 35,10" fill="#FFA500"/>
+  <polygon points="55,15 60,0 45,10" fill="#FFA500"/>
+  <polygon points="27,13 23,3 33,10" fill="#FFB6C1"/>
+  <polygon points="53,13 57,3 47,10" fill="#FFB6C1"/>
+  
+  <!-- Happy closed eyes -->
+  <path d="M26,25 Q32,20 38,25" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42,25 Q48,20 54,25" fill="none" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Blush -->
+  <circle cx="22" cy="32" r="5" fill="#FFB6C1" opacity="0.5"/>
+  <circle cx="58" cy="32" r="5" fill="#FFB6C1" opacity="0.5"/>
+  
+  <!-- Nose -->
+  <ellipse cx="40" cy="35" rx="4" ry="3" fill="#FFB6C1"/>
+  
+  <!-- Happy mouth -->
+  <path d="M32,40 Q40,50 48,40" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Whiskers -->
+  <g stroke="#333" stroke-width="1">
+    <line x1="20" y1="32" x2="30" y2="35"/>
+    <line x1="20" y1="38" x2="30" y2="38"/>
+    <line x1="50" y1="35" x2="60" y2="32"/>
+    <line x1="50" y1="38" x2="60" y2="38"/>
+  </g>
+  
+  <!-- Tail (happy wagging) -->
+  <path d="M65,55 Q85,35 70,60" stroke="#FFA500" stroke-width="8" fill="none" stroke-linecap="round"/>
+  
+  <!-- Front paws -->
+  <ellipse cx="30" cy="72" rx="8" ry="5" fill="#FFA500"/>
+  <ellipse cx="50" cy="72" rx="8" ry="5" fill="#FFA500"/>
+  
+  <!-- Hearts -->
+  <g fill="#FF69B4" opacity="0.8">
+    <path d="M10,15 C10,10 15,10 15,15 C15,10 20,10 20,15 C20,20 15,25 15,25 C15,25 10,20 10,15"/>
+    <path d="M65,10 C65,7 68,7 68,10 C68,7 71,7 71,10 C71,13 68,16 68,16 C68,16 65,13 65,10" transform="scale(0.8)"/>
+  </g>
+</svg>

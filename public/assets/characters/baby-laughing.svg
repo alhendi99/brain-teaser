@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 70">
+  <!-- Baby body/onesie -->
+  <ellipse cx="30" cy="50" rx="20" ry="18" fill="#87CEEB"/>
+  
+  <!-- Head -->
+  <circle cx="30" cy="22" r="18" fill="#FFE4C4"/>
+  
+  <!-- Little hair tuft -->
+  <path d="M25,5 Q30,0 35,5" stroke="#8B4513" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M28,6 Q30,2 32,6" stroke="#8B4513" stroke-width="2" fill="none"/>
+  
+  <!-- Happy closed eyes -->
+  <path d="M20,18 Q25,14 30,18" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M30,18 Q35,14 40,18" fill="none" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Big happy smile -->
+  <path d="M20,30 Q30,42 40,30" fill="#FF6B6B" stroke="#333" stroke-width="1.5"/>
+  <path d="M22,30 Q30,38 38,30" fill="#FFB6C1"/>
+  
+  <!-- Rosy cheeks -->
+  <circle cx="15" cy="26" r="5" fill="#FFB6C1" opacity="0.6"/>
+  <circle cx="45" cy="26" r="5" fill="#FFB6C1" opacity="0.6"/>
+  
+  <!-- Arms waving happily -->
+  <ellipse cx="10" cy="38" rx="6" ry="8" fill="#FFE4C4" transform="rotate(-20 10 38)"/>
+  <ellipse cx="50" cy="38" rx="6" ry="8" fill="#FFE4C4" transform="rotate(20 50 38)"/>
+  
+  <!-- Feet kicking -->
+  <ellipse cx="20" cy="65" rx="6" ry="4" fill="#87CEEB" transform="rotate(-10 20 65)"/>
+  <ellipse cx="40" cy="65" rx="6" ry="4" fill="#87CEEB" transform="rotate(10 40 65)"/>
+  
+  <!-- Joy sparkles -->
+  <g fill="#FFD700">
+    <polygon points="5,10 6,13 9,13 7,15 8,18 5,16 2,18 3,15 1,13 4,13"/>
+    <polygon points="55,8 56,10 58,10 57,12 58,14 55,13 52,14 53,12 52,10 54,10"/>
+  </g>
+  
+  <!-- Giggle lines -->
+  <g stroke="#FFB6C1" stroke-width="1" opacity="0.5">
+    <path d="M12,30 Q8,32 12,34"/>
+    <path d="M48,30 Q52,32 48,34"/>
+  </g>
+</svg>

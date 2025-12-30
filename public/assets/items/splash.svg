@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Main splash -->
+  <ellipse cx="50" cy="60" rx="40" ry="25" fill="#87CEEB" opacity="0.7"/>
+  
+  <!-- Splash droplets -->
+  <g fill="#87CEEB">
+    <!-- Top droplets -->
+    <ellipse cx="30" cy="25" rx="6" ry="10"/>
+    <ellipse cx="50" cy="15" rx="5" ry="12"/>
+    <ellipse cx="70" cy="20" rx="6" ry="11"/>
+    
+    <!-- Side droplets -->
+    <ellipse cx="15" cy="45" rx="8" ry="6"/>
+    <ellipse cx="85" cy="40" rx="7" ry="5"/>
+    
+    <!-- Small droplets -->
+    <circle cx="25" cy="35" r="4"/>
+    <circle cx="75" cy="30" r="4"/>
+    <circle cx="40" cy="20" r="3"/>
+    <circle cx="60" cy="25" r="3"/>
+  </g>
+  
+  <!-- Splash lines -->
+  <g stroke="#ADD8E6" stroke-width="2" fill="none" opacity="0.8">
+    <path d="M30,60 Q25,40 30,25"/>
+    <path d="M50,55 Q50,35 50,15"/>
+    <path d="M70,60 Q75,40 70,20"/>
+  </g>
+  
+  <!-- Shine effects -->
+  <g fill="white" opacity="0.6">
+    <circle cx="35" cy="55" r="5"/>
+    <circle cx="60" cy="50" r="4"/>
+  </g>
+</svg>

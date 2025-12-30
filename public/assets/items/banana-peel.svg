@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 40">
+  <!-- Main peel center -->
+  <ellipse cx="30" cy="30" rx="10" ry="5" fill="#FFD700"/>
+  
+  <!-- Peel strips -->
+  <path d="M20,30 Q10,20 15,5" fill="#FFE135" stroke="#DAA520" stroke-width="1"/>
+  <path d="M25,28 Q20,15 30,2" fill="#FFE135" stroke="#DAA520" stroke-width="1"/>
+  <path d="M35,28 Q40,15 35,2" fill="#FFE135" stroke="#DAA520" stroke-width="1"/>
+  <path d="M40,30 Q50,20 48,5" fill="#FFE135" stroke="#DAA520" stroke-width="1"/>
+  
+  <!-- Brown spots -->
+  <g fill="#8B4513" opacity="0.3">
+    <circle cx="18" cy="15" r="2"/>
+    <circle cx="42" cy="12" r="1.5"/>
+    <circle cx="32" cy="8" r="1"/>
+    <circle cx="25" cy="32" r="1.5"/>
+  </g>
+  
+  <!-- Peel tips (darker) -->
+  <g fill="#DAA520">
+    <circle cx="15" cy="5" r="3"/>
+    <circle cx="30" cy="2" r="2.5"/>
+    <circle cx="35" cy="2" r="2.5"/>
+    <circle cx="48" cy="5" r="3"/>
+  </g>
+  
+  <!-- Shine -->
+  <ellipse cx="22" cy="18" rx="3" ry="5" fill="white" opacity="0.3" transform="rotate(-20 22 18)"/>
+</svg>

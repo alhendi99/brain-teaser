@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40">
+  <!-- Log body -->
+  <rect x="5" y="10" width="90" height="20" fill="#8B4513" rx="10"/>
+  
+  <!-- Log end (left) -->
+  <ellipse cx="10" cy="20" rx="8" ry="12" fill="#A0522D"/>
+  <ellipse cx="10" cy="20" rx="5" ry="8" fill="#DEB887"/>
+  <!-- Tree rings -->
+  <circle cx="10" cy="20" r="6" fill="none" stroke="#8B4513" stroke-width="0.5"/>
+  <circle cx="10" cy="20" r="4" fill="none" stroke="#8B4513" stroke-width="0.5"/>
+  <circle cx="10" cy="20" r="2" fill="#8B4513"/>
+  
+  <!-- Log end (right) -->
+  <ellipse cx="90" cy="20" rx="8" ry="12" fill="#A0522D"/>
+  <ellipse cx="90" cy="20" rx="5" ry="8" fill="#DEB887"/>
+  <!-- Tree rings -->
+  <circle cx="90" cy="20" r="6" fill="none" stroke="#8B4513" stroke-width="0.5"/>
+  <circle cx="90" cy="20" r="4" fill="none" stroke="#8B4513" stroke-width="0.5"/>
+  <circle cx="90" cy="20" r="2" fill="#8B4513"/>
+  
+  <!-- Bark texture -->
+  <g stroke="#654321" stroke-width="1" opacity="0.5">
+    <line x1="25" y1="12" x2="25" y2="28"/>
+    <line x1="40" y1="11" x2="40" y2="29"/>
+    <line x1="55" y1="12" x2="55" y2="28"/>
+    <line x1="70" y1="11" x2="70" y2="29"/>
+  </g>
+  
+  <!-- Highlight -->
+  <rect x="15" y="12" width="70" height="4" fill="#A0522D" opacity="0.5" rx="2"/>
+</svg>

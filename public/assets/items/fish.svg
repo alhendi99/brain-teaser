@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 50">
+  <!-- Fish body -->
+  <ellipse cx="35" cy="25" rx="28" ry="15" fill="#4169E1"/>
+  
+  <!-- Fish tail -->
+  <polygon points="60,25 80,10 80,40" fill="#4169E1"/>
+  
+  <!-- Fish body gradient overlay -->
+  <ellipse cx="35" cy="22" rx="25" ry="10" fill="#6495ED" opacity="0.5"/>
+  
+  <!-- Eye -->
+  <circle cx="18" cy="22" r="6" fill="white"/>
+  <circle cx="17" cy="22" r="3" fill="#333"/>
+  <circle cx="16" cy="21" r="1" fill="white"/>
+  
+  <!-- Mouth -->
+  <ellipse cx="6" cy="25" rx="3" ry="2" fill="#1E90FF"/>
+  
+  <!-- Fins -->
+  <path d="M30,12 Q40,0 50,12" fill="#1E90FF"/>
+  <path d="M35,38 Q40,48 50,38" fill="#1E90FF"/>
+  <ellipse cx="25" cy="30" rx="8" ry="4" fill="#1E90FF" transform="rotate(-20 25 30)"/>
+  
+  <!-- Scales pattern -->
+  <g fill="none" stroke="#6495ED" stroke-width="0.5" opacity="0.5">
+    <path d="M20,20 Q25,18 30,20"/>
+    <path d="M25,25 Q30,23 35,25"/>
+    <path d="M30,20 Q35,18 40,20"/>
+    <path d="M35,25 Q40,23 45,25"/>
+    <path d="M40,20 Q45,18 50,20"/>
+  </g>
+  
+  <!-- Shine -->
+  <ellipse cx="25" cy="18" rx="8" ry="3" fill="white" opacity="0.3"/>
+</svg>

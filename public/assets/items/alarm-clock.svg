@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Clock bells -->
+  <circle cx="20" cy="18" r="10" fill="#FFD700"/>
+  <circle cx="60" cy="18" r="10" fill="#FFD700"/>
+  
+  <!-- Bell connector -->
+  <rect x="25" y="12" width="30" height="8" fill="#FFD700"/>
+  
+  <!-- Clock body -->
+  <circle cx="40" cy="45" r="28" fill="#FF6B6B" stroke="#CC5555" stroke-width="3"/>
+  
+  <!-- Clock face -->
+  <circle cx="40" cy="45" r="22" fill="#FFFFFF"/>
+  
+  <!-- Clock numbers/marks -->
+  <g fill="#333" font-size="8" text-anchor="middle">
+    <text x="40" y="30">12</text>
+    <text x="56" y="48">3</text>
+    <text x="40" y="66">6</text>
+    <text x="24" y="48">9</text>
+  </g>
+  
+  <!-- Clock hands -->
+  <line x1="40" y1="45" x2="40" y2="32" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  <line x1="40" y1="45" x2="52" y2="45" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Center dot -->
+  <circle cx="40" cy="45" r="2" fill="#333"/>
+  
+  <!-- Legs -->
+  <rect x="25" y="70" width="6" height="8" fill="#CC5555" rx="2"/>
+  <rect x="49" y="70" width="6" height="8" fill="#CC5555" rx="2"/>
+  
+  <!-- Broken indicator (crack) -->
+  <path d="M55,35 L60,42 L55,48" stroke="#333" stroke-width="1.5" fill="none" opacity="0.5"/>
+</svg>

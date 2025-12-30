@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Pillow -->
+  <ellipse cx="30" cy="45" rx="25" ry="15" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
+  
+  <!-- Body sitting up -->
+  <ellipse cx="55" cy="70" rx="30" ry="15" fill="#4169E1"/>
+  
+  <!-- Head -->
+  <circle cx="45" cy="35" r="18" fill="#FDBF6F"/>
+  
+  <!-- Hair (messy) -->
+  <path d="M30,25 Q35,10 50,15 Q65,10 60,30" fill="#4A3728" stroke="none"/>
+  <path d="M32,20 L28,12" stroke="#4A3728" stroke-width="3" stroke-linecap="round"/>
+  <path d="M55,18 L58,10" stroke="#4A3728" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Open eyes -->
+  <circle cx="39" cy="33" r="5" fill="white"/>
+  <circle cx="51" cy="33" r="5" fill="white"/>
+  <circle cx="39" cy="33" r="3" fill="#333"/>
+  <circle cx="51" cy="33" r="3" fill="#333"/>
+  
+  <!-- Yawning mouth -->
+  <ellipse cx="45" cy="45" rx="5" ry="6" fill="#333"/>
+  
+  <!-- Raised arm stretching -->
+  <path d="M70,50 Q80,30 75,20" stroke="#FDBF6F" stroke-width="8" fill="none" stroke-linecap="round"/>
+</svg>

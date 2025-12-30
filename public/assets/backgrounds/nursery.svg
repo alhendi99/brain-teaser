@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="nurseryWall" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFE4E1"/>
+      <stop offset="100%" style="stop-color:#FFC0CB"/>
+    </linearGradient>
+    <linearGradient id="carpetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#DDA0DD"/>
+      <stop offset="100%" style="stop-color:#BA55D3"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Wall -->
+  <rect width="400" height="220" fill="url(#nurseryWall)"/>
+  
+  <!-- Floor -->
+  <rect y="220" width="400" height="80" fill="#DEB887"/>
+  
+  <!-- Carpet -->
+  <ellipse cx="200" cy="260" rx="120" ry="30" fill="url(#carpetGrad)"/>
+  
+  <!-- Wall decorations - stars -->
+  <g fill="#FFD700" opacity="0.6">
+    <polygon points="50,30 53,40 63,40 55,47 58,57 50,51 42,57 45,47 37,40 47,40"/>
+    <polygon points="120,50 122,57 130,57 124,62 126,70 120,66 114,70 116,62 110,57 118,57"/>
+    <polygon points="280,35 283,45 293,45 285,52 288,62 280,56 272,62 275,52 267,45 277,45"/>
+    <polygon points="350,60 352,67 360,67 354,72 356,80 350,76 344,80 346,72 340,67 348,67"/>
+  </g>
+  
+  <!-- Wall decorations - clouds -->
+  <g fill="#FFFFFF" opacity="0.5">
+    <ellipse cx="80" cy="100" rx="25" ry="12"/>
+    <ellipse cx="100" cy="95" rx="20" ry="10"/>
+    <ellipse cx="320" cy="90" rx="30" ry="14"/>
+    <ellipse cx="345" cy="85" rx="22" ry="11"/>
+  </g>
+  
+  <!-- Window -->
+  <rect x="20" y="40" width="80" height="100" fill="#87CEEB"/>
+  <rect x="20" y="40" width="80" height="100" fill="none" stroke="#FFF" stroke-width="5"/>
+  <line x1="60" y1="40" x2="60" y2="140" stroke="#FFF" stroke-width="3"/>
+  <line x1="20" y1="90" x2="100" y2="90" stroke="#FFF" stroke-width="3"/>
+  
+  <!-- Curtains -->
+  <path d="M15,40 Q25,90 15,140 L20,140 L20,40 Z" fill="#FF69B4"/>
+  <path d="M105,40 Q95,90 105,140 L100,140 L100,40 Z" fill="#FF69B4"/>
+  
+  <!-- Mobile (hanging decoration) -->
+  <line x1="200" y1="0" x2="200" y2="40" stroke="#C0C0C0" stroke-width="2"/>
+  <circle cx="180" cy="60" r="10" fill="#FF6B6B"/>
+  <circle cx="200" cy="50" r="10" fill="#4ECDC4"/>
+  <circle cx="220" cy="60" r="10" fill="#FFE66D"/>
+  <line x1="200" y1="40" x2="180" y2="60" stroke="#C0C0C0" stroke-width="1"/>
+  <line x1="200" y1="40" x2="200" y2="50" stroke="#C0C0C0" stroke-width="1"/>
+  <line x1="200" y1="40" x2="220" y2="60" stroke="#C0C0C0" stroke-width="1"/>
+  
+  <!-- Shelf -->
+  <rect x="280" y="100" width="100" height="10" fill="#8B4513"/>
+  
+  <!-- Toys on shelf -->
+  <circle cx="300" cy="95" r="12" fill="#FF6347"/>
+  <rect x="330" y="85" width="15" height="15" fill="#4169E1"/>
+  <polygon points="365,70 375,95 355,95" fill="#32CD32"/>
+  
+  <!-- Dresser -->
+  <rect x="300" y="160" width="80" height="60" fill="#DEB887"/>
+  <rect x="305" y="165" width="70" height="20" fill="#D2B48C"/>
+  <rect x="305" y="190" width="70" height="25" fill="#D2B48C"/>
+  <circle cx="340" cy="175" r="3" fill="#FFD700"/>
+  <circle cx="340" cy="202" r="3" fill="#FFD700"/>
+</svg>

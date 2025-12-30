@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
+  <!-- Bucket handle -->
+  <path d="M15,25 Q40,5 65,25" fill="none" stroke="#808080" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Bucket body -->
+  <path d="M10,30 L18,70 L62,70 L70,30 Z" fill="#4169E1" stroke="#3155A8" stroke-width="2"/>
+  
+  <!-- Bucket rim -->
+  <ellipse cx="40" cy="30" rx="30" ry="8" fill="#5179E1" stroke="#3155A8" stroke-width="2"/>
+  
+  <!-- Water surface -->
+  <ellipse cx="40" cy="32" rx="26" ry="6" fill="#87CEEB"/>
+  
+  <!-- Water shine -->
+  <ellipse cx="35" cy="31" rx="8" ry="3" fill="#B0E0E6" opacity="0.6"/>
+  
+  <!-- Bucket stripes -->
+  <line x1="15" y1="40" x2="65" y2="40" stroke="#3155A8" stroke-width="1"/>
+  <line x1="16" y1="55" x2="64" y2="55" stroke="#3155A8" stroke-width="1"/>
+  
+  <!-- Metal bands -->
+  <path d="M12,35 L68,35" stroke="#C0C0C0" stroke-width="2"/>
+  <path d="M17,60" stroke="#C0C0C0" stroke-width="2"/>
+</svg>

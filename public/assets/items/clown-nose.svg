@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60">
+  <!-- Main nose -->
+  <circle cx="30" cy="30" r="25" fill="#FF0000"/>
+  
+  <!-- Highlight -->
+  <circle cx="22" cy="22" r="8" fill="#FF6B6B"/>
+  <circle cx="18" cy="18" r="3" fill="#FFF" opacity="0.8"/>
+  
+  <!-- Elastic band hint -->
+  <path d="M8,30 Q0,30 0,35" stroke="#333" stroke-width="2" fill="none"/>
+  <path d="M52,30 Q60,30 60,35" stroke="#333" stroke-width="2" fill="none"/>
+</svg>

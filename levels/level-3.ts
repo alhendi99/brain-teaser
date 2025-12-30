@@ -1,0 +1,143 @@
+import { Level } from '@/types/game';
+
+// Level 3: Cross the river - The trick is to use the log, not the broken bridge!
+export const level3: Level = {
+  id: 3,
+  title: "Cross the River",
+  titleAr: "اعبر النهر",
+  description: "Help the adventurer cross the river",
+  descriptionAr: "ساعد المغامر على عبور النهر",
+  background: "/assets/backgrounds/river.svg",
+  items: [
+    {
+      id: "adventurer",
+      name: "Adventurer",
+      nameAr: "المغامر",
+      image: "/assets/characters/adventurer.svg",
+      position: { x: 10, y: 50 },
+      draggable: true,
+      visible: true,
+      zIndex: 3,
+      states: {
+        standing: {},
+        walking: { image: "/assets/characters/adventurer-walking.svg" },
+        celebrating: { image: "/assets/characters/adventurer-celebrating.svg" },
+      },
+      currentState: "standing",
+    },
+    {
+      id: "broken_bridge",
+      name: "Broken Bridge",
+      nameAr: "الجسر المكسور",
+      image: "/assets/items/broken-bridge.svg",
+      position: { x: 35, y: 40 },
+      draggable: false,
+      visible: true,
+      zIndex: 1,
+    },
+    {
+      id: "log",
+      name: "Floating Log",
+      nameAr: "الجذع الطافي",
+      image: "/assets/items/log.svg",
+      position: { x: 45, y: 70 },
+      draggable: true,
+      visible: true,
+      zIndex: 2,
+    },
+    {
+      id: "river",
+      name: "River",
+      nameAr: "النهر",
+      image: "/assets/items/river.svg",
+      position: { x: 30, y: 45 },
+      draggable: false,
+      visible: true,
+      zIndex: 0,
+    },
+    {
+      id: "rope",
+      name: "Rope",
+      nameAr: "حبل",
+      image: "/assets/items/rope.svg",
+      position: { x: 5, y: 30 },
+      draggable: true,
+      visible: true,
+      zIndex: 2,
+      combinableWith: ["log"],
+      combineResult: "rope_log",
+    },
+    {
+      id: "rope_log",
+      name: "Secured Log",
+      nameAr: "جذع مربوط",
+      image: "/assets/items/rope-log.svg",
+      position: { x: 40, y: 55 },
+      draggable: true,
+      visible: false,
+      zIndex: 2,
+    },
+    {
+      id: "treasure",
+      name: "Treasure",
+      nameAr: "الكنز",
+      image: "/assets/items/treasure.svg",
+      position: { x: 85, y: 50 },
+      draggable: false,
+      visible: true,
+      zIndex: 1,
+    },
+  ],
+  zones: [
+    {
+      id: "river_zone",
+      bounds: { x: 30, y: 40, width: 40, height: 35 },
+      acceptsItems: ["log", "rope_log"],
+    },
+    {
+      id: "other_side",
+      bounds: { x: 75, y: 40, width: 20, height: 40 },
+      acceptsItems: ["adventurer"],
+    },
+    {
+      id: "log_area",
+      bounds: { x: 40, y: 65, width: 20, height: 25 },
+      acceptsItems: ["rope"],
+    },
+  ],
+  solution: [
+    {
+      action: 'drag',
+      target: 'log',
+      destination: 'river_zone',
+      effects: [
+        { type: 'move', target: 'log', value: { x: 45, y: 50 } },
+        { type: 'sound', target: 'drop', value: null },
+      ],
+    },
+    {
+      action: 'drag',
+      target: 'adventurer',
+      destination: 'other_side',
+      effects: [
+        { type: 'move', target: 'adventurer', value: { x: 80, y: 50 } },
+        { type: 'changeState', target: 'adventurer', value: 'celebrating' },
+        { type: 'sound', target: 'correct', value: null },
+      ],
+    },
+  ],
+  hints: [
+    "The bridge looks too dangerous to cross...",
+    "Look around for something that floats!",
+    "Use the log to create a path across! 🪵",
+  ],
+  hintsAr: [
+    "الجسر يبدو خطيراً جداً للعبور...",
+    "ابحث حولك عن شيء يطفو!",
+    "استخدم الجذع لإنشاء ممر للعبور! 🪵",
+  ],
+  successMessage: "Adventure awaits on the other side! 🏆",
+  successMessageAr: "المغامرة تنتظر على الجانب الآخر! 🏆",
+};
+
+export default level3;

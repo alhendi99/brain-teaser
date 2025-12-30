@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 80">
+  <!-- Can body -->
+  <path d="M10,20 L5,75 Q5,80 30,80 Q55,80 55,75 L50,20 Z" fill="#228B22"/>
+  
+  <!-- Lid -->
+  <ellipse cx="30" cy="20" rx="22" ry="8" fill="#2E8B2E"/>
+  <ellipse cx="30" cy="18" rx="18" ry="6" fill="#32CD32"/>
+  
+  <!-- Handle -->
+  <rect x="26" y="8" width="8" height="12" fill="#2E8B2E" rx="2"/>
+  
+  <!-- Recycling symbol -->
+  <g transform="translate(30,50)" fill="none" stroke="#90EE90" stroke-width="2">
+    <path d="M-8,-10 L0,-5 L8,-10"/>
+    <path d="M8,-10 L8,5 L0,10"/>
+    <path d="M0,10 L-8,5 L-8,-10"/>
+  </g>
+  
+  <!-- Shine -->
+  <path d="M15,25 Q12,50 15,70" stroke="#90EE90" stroke-width="3" fill="none" opacity="0.4"/>
+</svg>

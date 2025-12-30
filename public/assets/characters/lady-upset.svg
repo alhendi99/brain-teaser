@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120">
+  <!-- Body/Dress -->
+  <path d="M25,50 L20,110 L60,110 L55,50 Z" fill="#9370DB"/>
+  
+  <!-- Arms -->
+  <path d="M25,55 L10,75 L15,78 L28,60" fill="#FFDAB9"/>
+  <path d="M55,55 L70,75 L65,78 L52,60" fill="#FFDAB9"/>
+  
+  <!-- Hands on cheeks (worried pose) -->
+  <circle cx="12" cy="75" r="6" fill="#FFDAB9"/>
+  <circle cx="68" cy="75" r="6" fill="#FFDAB9"/>
+  
+  <!-- Head -->
+  <circle cx="40" cy="30" r="22" fill="#FFDAB9"/>
+  
+  <!-- Hair -->
+  <path d="M20,25 Q20,5 40,8 Q60,5 60,25 Q55,15 40,18 Q25,15 20,25" fill="#4A4A4A"/>
+  <path d="M18,28 Q15,40 20,50" fill="#4A4A4A"/>
+  <path d="M62,28 Q65,40 60,50" fill="#4A4A4A"/>
+  
+  <!-- Worried eyes -->
+  <ellipse cx="32" cy="28" rx="4" ry="5" fill="#FFF"/>
+  <ellipse cx="48" cy="28" rx="4" ry="5" fill="#FFF"/>
+  <circle cx="32" cy="29" r="2" fill="#333"/>
+  <circle cx="48" cy="29" r="2" fill="#333"/>
+  
+  <!-- Worried eyebrows -->
+  <path d="M26,22 L36,25" stroke="#4A4A4A" stroke-width="2" fill="none"/>
+  <path d="M54,22 L44,25" stroke="#4A4A4A" stroke-width="2" fill="none"/>
+  
+  <!-- Worried mouth -->
+  <path d="M34,42 Q40,38 46,42" stroke="#333" stroke-width="2" fill="none"/>
+  
+  <!-- Sweat drop -->
+  <path d="M60,20 Q63,25 60,30 Q57,25 60,20" fill="#87CEEB"/>
+  
+  <!-- Legs -->
+  <rect x="28" y="105" width="8" height="15" fill="#FFDAB9"/>
+  <rect x="44" y="105" width="8" height="15" fill="#FFDAB9"/>
+  
+  <!-- Shoes -->
+  <ellipse cx="32" cy="118" rx="8" ry="4" fill="#333"/>
+  <ellipse cx="48" cy="118" rx="8" ry="4" fill="#333"/>
+</svg>

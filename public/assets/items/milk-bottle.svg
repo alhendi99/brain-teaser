@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 100">
+  <!-- Nipple -->
+  <ellipse cx="25" cy="8" rx="8" ry="8" fill="#F4A460"/>
+  <ellipse cx="25" cy="5" rx="4" ry="4" fill="#DEB887"/>
+  
+  <!-- Cap ring -->
+  <rect x="15" y="14" width="20" height="8" rx="2" fill="#87CEEB"/>
+  
+  <!-- Bottle neck -->
+  <path d="M18,22 L18,30 L12,40 L12,85 Q12,95 25,95 Q38,95 38,85 L38,40 L32,30 L32,22 Z" fill="#E0FFFF"/>
+  <path d="M18,22 L18,30 L12,40 L12,85 Q12,95 25,95 Q38,95 38,85 L38,40 L32,30 L32,22 Z" fill="none" stroke="#87CEEB" stroke-width="2"/>
+  
+  <!-- Milk -->
+  <path d="M14,45 L14,83 Q14,93 25,93 Q36,93 36,83 L36,45 Z" fill="#FFFAFA"/>
+  
+  <!-- Measurement lines -->
+  <line x1="14" y1="55" x2="18" y2="55" stroke="#87CEEB" stroke-width="1"/>
+  <line x1="14" y1="65" x2="20" y2="65" stroke="#87CEEB" stroke-width="1"/>
+  <line x1="14" y1="75" x2="18" y2="75" stroke="#87CEEB" stroke-width="1"/>
+  
+  <!-- Shine -->
+  <path d="M32,45 Q34,60 32,80" stroke="#FFF" stroke-width="3" fill="none" opacity="0.5"/>
+</svg>

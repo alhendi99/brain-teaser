@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 120">
+  <!-- Fridge body -->
+  <rect x="5" y="5" width="70" height="110" fill="#E8E8E8" rx="5"/>
+  
+  <!-- Freezer door -->
+  <rect x="8" y="8" width="64" height="35" fill="#D3D3D3" rx="3"/>
+  
+  <!-- Main door -->
+  <rect x="8" y="46" width="64" height="66" fill="#D3D3D3" rx="3"/>
+  
+  <!-- Freezer handle -->
+  <rect x="60" y="18" width="8" height="15" fill="#A9A9A9" rx="2"/>
+  
+  <!-- Main handle -->
+  <rect x="60" y="60" width="8" height="25" fill="#A9A9A9" rx="2"/>
+  
+  <!-- Door lines -->
+  <line x1="8" y1="43" x2="72" y2="43" stroke="#BEBEBE" stroke-width="2"/>
+  
+  <!-- Brand logo placeholder -->
+  <rect x="30" y="20" width="20" height="8" fill="#A9A9A9" rx="2"/>
+  
+  <!-- Shine effect -->
+  <rect x="12" y="50" width="8" height="40" fill="white" opacity="0.2" rx="2"/>
+  
+  <!-- Ice dispenser -->
+  <rect x="25" y="55" width="25" height="15" fill="#B0B0B0" rx="2"/>
+  <rect x="28" y="58" width="19" height="9" fill="#888" rx="1"/>
+</svg>

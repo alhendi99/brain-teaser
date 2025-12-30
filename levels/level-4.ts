@@ -1,0 +1,133 @@
+import { Level } from '@/types/game';
+
+// Level 4: Stop the thief - The trick is to use the banana peel, not chase him!
+export const level4: Level = {
+  id: 4,
+  title: "Stop the Thief!",
+  titleAr: "أوقف اللص!",
+  description: "The thief stole a purse! Stop him!",
+  descriptionAr: "اللص سرق الحقيبة! أوقفه!",
+  background: "/assets/backgrounds/street.svg",
+  items: [
+    {
+      id: "thief",
+      name: "Running Thief",
+      nameAr: "اللص الهارب",
+      image: "/assets/characters/thief-running.svg",
+      position: { x: 70, y: 50 },
+      draggable: false,
+      visible: true,
+      zIndex: 3,
+      states: {
+        running: {},
+        slipped: { image: "/assets/characters/thief-slipped.svg" },
+      },
+      currentState: "running",
+    },
+    {
+      id: "police",
+      name: "Police Officer",
+      nameAr: "الشرطي",
+      image: "/assets/characters/police.svg",
+      position: { x: 10, y: 50 },
+      draggable: true,
+      visible: true,
+      zIndex: 3,
+    },
+    {
+      id: "banana_peel",
+      name: "Banana Peel",
+      nameAr: "قشرة موز",
+      image: "/assets/items/banana-peel.svg",
+      position: { x: 25, y: 75 },
+      draggable: true,
+      visible: true,
+      zIndex: 2,
+    },
+    {
+      id: "trash_can",
+      name: "Trash Can",
+      nameAr: "سلة القمامة",
+      image: "/assets/items/trash-can.svg",
+      position: { x: 20, y: 65 },
+      draggable: false,
+      visible: true,
+      zIndex: 1,
+    },
+    {
+      id: "purse",
+      name: "Stolen Purse",
+      nameAr: "الحقيبة المسروقة",
+      image: "/assets/items/purse.svg",
+      position: { x: 75, y: 55 },
+      draggable: false,
+      visible: true,
+      zIndex: 4,
+    },
+    {
+      id: "net",
+      name: "Fishing Net",
+      nameAr: "شبكة صيد",
+      image: "/assets/items/net.svg",
+      position: { x: 90, y: 30 },
+      draggable: true,
+      visible: true,
+      zIndex: 2,
+    },
+    {
+      id: "lady",
+      name: "Lady",
+      nameAr: "السيدة",
+      image: "/assets/characters/lady-upset.svg",
+      position: { x: 5, y: 45 },
+      draggable: false,
+      visible: true,
+      zIndex: 2,
+      states: {
+        upset: {},
+        happy: { image: "/assets/characters/lady-happy.svg" },
+      },
+      currentState: "upset",
+    },
+  ],
+  zones: [
+    {
+      id: "thief_path",
+      bounds: { x: 55, y: 45, width: 20, height: 25 },
+      acceptsItems: ["banana_peel", "net"],
+    },
+    {
+      id: "thief_zone",
+      bounds: { x: 65, y: 40, width: 25, height: 35 },
+      acceptsItems: ["police"],
+    },
+  ],
+  solution: [
+    {
+      action: 'drag',
+      target: 'banana_peel',
+      destination: 'thief_path',
+      effects: [
+        { type: 'move', target: 'banana_peel', value: { x: 60, y: 60 } },
+        { type: 'changeState', target: 'thief', value: 'slipped' },
+        { type: 'move', target: 'thief', value: { x: 65, y: 60 } },
+        { type: 'changeState', target: 'lady', value: 'happy' },
+        { type: 'sound', target: 'swoosh', value: null },
+      ],
+    },
+  ],
+  hints: [
+    "The thief is too fast to catch...",
+    "Maybe make him slip somehow?",
+    "Classic cartoon trick - use the banana peel! 🍌",
+  ],
+  hintsAr: [
+    "اللص سريع جداً للإمساك به...",
+    "ربما تجعله ينزلق بطريقة ما؟",
+    "خدعة الكرتون الكلاسيكية - استخدم قشرة الموز! 🍌",
+  ],
+  successMessage: "Slipped! Justice served! 🍌👮",
+  successMessageAr: "انزلق! تمت العدالة! 🍌👮",
+};
+
+export default level4;
