@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   DndContext,
@@ -12,12 +12,11 @@ import {
   TouchSensor,
   useSensor,
   useSensors,
-  MeasuringStrategy,
 } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
-import { Level, GameItem, GameState, InteractiveZone } from '@/types/game';
+import { Level, GameItem, InteractiveZone } from '@/types/game';
 import { GameEngine } from '@/lib/gameEngine';
-import { useGameStore, useSettings } from '@/lib/store';
+import { useGameStore } from '@/lib/store';
 import HintModal from './HintModal';
 import LevelCompleteModal from './LevelCompleteModal';
 import PauseMenu from './PauseMenu';
@@ -28,14 +27,7 @@ interface GameCanvasProps {
   onExit: () => void;
 }
 
-// Optimized animation variants - reduced complexity for mobile
-const itemVariants = {
-  initial: { opacity: 0, scale: 0.8 },
-  animate: { opacity: 1, scale: 1 },
-  exit: { opacity: 0, scale: 0.8 },
-};
-
-// Memoized Draggable Item Component for performance
+// Draggable Item Component
 const DraggableItem = memo(function DraggableItem({
   item,
   onClick,
@@ -48,93 +40,141 @@ const DraggableItem = memo(function DraggableItem({
     disabled: !item.draggable,
   });
 
+  const [imageError, setImageError] = useState(false);
+
   if (!item.visible) return null;
 
-  const style: React.CSSProperties = useMemo(() => ({
-    position: 'absolute',
-    left: `${item.position.x}%`,
-    top: `${item.position.y}%`,
-    zIndex: isDragging ? 100 : item.zIndex,
-    transform: CSS.Transform.toString(transform),
-    opacity: item.opacity ?? 1,
-    touchAction: 'none',
-    willChange: isDragging ? 'transform' : 'auto',
-  }), [item.position.x, item.position.y, item.zIndex, item.opacity, transform, isDragging]);
+  // Calculate the combined transform
+  let transformValue = 'translate(-50%, -50%)'; // Center on position point
+  
+  if (transform) {
+    transformValue += ` translate(${transform.x}px, ${transform.y}px)`;
+  }
+  
+  if (isDragging) {
+    transformValue += ' scale(1.1)';
+  } else if (item.scale && item.scale !== 1) {
+    transformValue += ` scale(${item.scale})`;
+  }
+  
+  if (item.rotation) {
+    transformValue += ` rotate(${item.rotation}deg)`;
+  }
 
   return (
     <motion.div
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className={`cursor-pointer select-none game-item ${isDragging ? 'scale-110' : ''}`}
-      style={style}
+      initial={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: item.opacity ?? 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.5 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       onClick={(e) => {
-        if (!isDragging && item.clickable) {
+        if (!isDragging && (item.clickable || !item.draggable)) {
           e.stopPropagation();
           onClick();
         }
       }}
-      variants={itemVariants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      whileTap={item.draggable ? { scale: 0.95 } : undefined}
+      style={{
+        position: 'absolute',
+        left: `${item.position.x}%`,
+        top: `${item.position.y}%`,
+        zIndex: isDragging ? 1000 : (item.zIndex || 1),
+        transform: transformValue,
+        cursor: item.draggable ? (isDragging ? 'grabbing' : 'grab') : (item.clickable ? 'pointer' : 'default'),
+        touchAction: 'none',
+        userSelect: 'none',
+        WebkitUserSelect: 'none',
+      }}
     >
-      <img
-        src={item.image}
-        alt={item.name}
-        className="w-auto h-auto max-w-[80px] max-h-[80px] md:max-w-[100px] md:max-h-[100px] pointer-events-none"
-        draggable={false}
-        loading="eager"
-      />
+      {imageError ? (
+        <div 
+          className="bg-red-500/80 text-white p-2 rounded text-xs whitespace-nowrap"
+          style={{ fontSize: '10px' }}
+        >
+          ❌ {item.id}
+        </div>
+      ) : (
+        <img
+          src={item.image}
+          alt={item.name}
+          onError={() => {
+            console.error(`Failed to load: ${item.image}`);
+            setImageError(true);
+          }}
+          draggable={false}
+          style={{
+            display: 'block',
+            // Set explicit dimensions for SVG - use min to ensure visibility
+            minWidth: '40px',
+            minHeight: '40px',
+            // Responsive sizing using clamp for max
+            width: 'clamp(60px, 15vw, 120px)',
+            height: 'auto',
+            maxWidth: 'clamp(60px, 18vw, 140px)',
+            maxHeight: 'clamp(60px, 18vh, 140px)',
+            // Maintain natural aspect ratio
+            objectFit: 'contain',
+            // Disable pointer events on image
+            pointerEvents: 'none',
+          } as React.CSSProperties}
+        />
+      )}
     </motion.div>
   );
 });
 
-// Memoized Droppable Zone Component
+// Droppable Zone Component  
 const DroppableZone = memo(function DroppableZone({
   zone,
   isActive,
+  debug,
 }: {
   zone: InteractiveZone;
   isActive: boolean;
+  debug?: boolean;
 }) {
   const { setNodeRef, isOver } = useDroppable({ id: zone.id });
 
-  if (zone.hidden) return null;
+  if (zone.hidden && !debug) return null;
 
   return (
     <div
       ref={setNodeRef}
-      className={`absolute rounded-lg transition-colors duration-150 ${
-        isOver
-          ? 'bg-green-400/30 border-2 border-green-400 border-dashed'
-          : isActive
-          ? 'bg-yellow-400/20 border-2 border-yellow-400/50 border-dashed'
-          : 'border-2 border-transparent'
-      }`}
       style={{
+        position: 'absolute',
         left: `${zone.bounds.x}%`,
         top: `${zone.bounds.y}%`,
         width: `${zone.bounds.width}%`,
         height: `${zone.bounds.height}%`,
-        willChange: isActive ? 'background-color, border-color' : 'auto',
+        borderRadius: '8px',
+        transition: 'all 0.2s ease',
+        // backgroundColor: isOver 
+        //   ? 'rgba(74, 222, 128, 0.4)' 
+        //   : isActive 
+        //   ? 'rgba(250, 204, 21, 0.2)' 
+        //   : 'transparent',
+        // border: isOver 
+        //   ? '2px solid rgba(74, 222, 128, 0.8)' 
+        //   : isActive 
+        //   ? '2px dashed rgba(250, 204, 21, 0.5)' 
+        //   : debug 
+        //   ? '1px dashed rgba(100, 100, 255, 0.5)'
+        //   : 'none',
       }}
-    />
+    >
+      {debug && (
+        <span className="absolute top-0 left-0 text-[10px] text-blue-400 bg-black/50 px-1 rounded">
+          {zone.id}
+        </span>
+      )}
+    </div>
   );
 });
 
-// Measuring strategy for better performance
-const measuringConfig = {
-  droppable: {
-    strategy: MeasuringStrategy.WhileDragging,
-  },
-};
-
 export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProps) {
-  const { settings } = useGameStore();
-  const { initLevel, updateGameState, gameState } = useGameStore();
+  const { settings, initLevel, updateGameState, gameState } = useGameStore();
   
   const [showHint, setShowHint] = useState(false);
   const [currentHintText, setCurrentHintText] = useState('');
@@ -144,42 +184,45 @@ export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProp
   const [correctAction, setCorrectAction] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [earnedStars, setEarnedStars] = useState(3);
+  const [debug, setDebug] = useState(false);
   
   const engineRef = useRef<GameEngine | null>(null);
 
-  // Optimized sensors for mobile - reduced activation delay
+  // Touch-optimized sensors
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 5, // Reduced for faster response
-      },
+      activationConstraint: { distance: 8 },
     }),
     useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 50, // Reduced delay for snappier feel
-        tolerance: 5,
-      },
+      activationConstraint: { delay: 100, tolerance: 8 },
     })
   );
 
   // Initialize level
   useEffect(() => {
+    console.log('[GameCanvas] Initializing level:', level.id, level.title);
+    console.log('[GameCanvas] Items count:', level.items.length);
+    level.items.forEach(item => {
+      console.log(`  - ${item.id}: visible=${item.visible}, image=${item.image}`);
+    });
     initLevel(level);
   }, [level, initLevel]);
 
-  // Initialize game engine when state is ready
+  // Initialize game engine
   useEffect(() => {
-    if (gameState) {
+    if (gameState && gameState.currentLevel === level.id) {
+      console.log('[GameCanvas] Game state ready');
+      console.log('[GameCanvas] State items:', gameState.items.length);
+      
       engineRef.current = new GameEngine(level, gameState, {
         onStateChange: (newState) => updateGameState(newState),
         onLevelComplete: (hintsUsed) => {
           const stars = Math.max(1, 3 - hintsUsed);
           setEarnedStars(stars);
-          setTimeout(() => setShowComplete(true), 500);
+          setTimeout(() => setShowComplete(true), 2000);
         },
         onWrongAction: () => {
           setWrongAction(true);
-          // Vibrate on wrong action
           if (settings.vibrationEnabled && navigator.vibrate) {
             navigator.vibrate([50, 30, 50]);
           }
@@ -194,31 +237,26 @@ export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProp
         },
       });
     }
-  }, [gameState?.currentLevel]);
+  }, [gameState?.currentLevel, level.id]);
 
-  // Handle drag start
   const handleDragStart = useCallback((event: DragStartEvent) => {
     setIsDragging(true);
   }, []);
 
-  // Handle drag end
   const handleDragEnd = useCallback((event: DragEndEvent) => {
     setIsDragging(false);
     const { active, over } = event;
-    
     if (over && engineRef.current) {
       engineRef.current.handleItemDrop(active.id as string, over.id as string);
     }
   }, []);
 
-  // Handle item click
   const handleItemClick = useCallback((itemId: string) => {
     if (!isDragging && engineRef.current) {
       engineRef.current.handleItemClick(itemId);
     }
   }, [isDragging]);
 
-  // Handle hint request
   const handleHint = useCallback(() => {
     if (engineRef.current) {
       const hint = engineRef.current.getHint(settings.language);
@@ -229,135 +267,273 @@ export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProp
     }
   }, [settings.language]);
 
-  // Handle level complete
   const handleCompleteClose = useCallback(() => {
     setShowComplete(false);
     onComplete(earnedStars);
   }, [earnedStars, onComplete]);
 
-  if (!gameState) {
+  // Loading state
+  if (!gameState || gameState.currentLevel !== level.id) {
     return (
-      <div className="flex items-center justify-center h-screen bg-game-dark">
-        <div className="animate-spin w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full" />
+      <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-b from-game-dark to-game-medium">
+        <div className="text-center">
+          <div className="animate-spin w-12 h-12 border-4 border-primary-500 border-t-transparent rounded-full mx-auto mb-4" />
+          <p className="text-white/60">Loading level {level.id}...</p>
+        </div>
       </div>
     );
   }
 
   const isRTL = settings.language === 'ar';
+  const visibleItems = gameState.items.filter(item => item.visible);
+  
+  // Debug log
+  console.log('[GameCanvas] Rendering with', visibleItems.length, 'visible items');
+  visibleItems.forEach(i => console.log(`  ${i.id}: pos(${i.position.x}, ${i.position.y}) img=${i.image}`));
 
   return (
-    <div className={`relative w-full h-screen overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}>
-      {/* Background */}
+    <div 
+      className={`fixed inset-0 overflow-hidden ${isRTL ? 'rtl' : 'ltr'}`}
+      style={{ touchAction: 'none' }}
+    >
+      {/* Background - Responsive full screen */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${level.background})` }}
+        style={{ 
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${level.background})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat',
+        }}
       />
       
-      {/* Gradient overlay for better visibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/40" />
+      {/* Overlay gradient */}
+      <div 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.3) 100%)',
+          pointerEvents: 'none',
+        }}
+      />
 
-      {/* Wrong action flash */}
+      {/* Action flashes */}
       <AnimatePresence>
         {wrongAction && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.4 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-red-500 pointer-events-none z-50"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: '#ef4444',
+              pointerEvents: 'none',
+              zIndex: 100,
+            }}
           />
         )}
-      </AnimatePresence>
-
-      {/* Correct action flash */}
-      <AnimatePresence>
         {correctAction && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.3 }}
             exit={{ opacity: 0 }}
-            className="absolute inset-0 bg-green-400 pointer-events-none z-50"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundColor: '#4ade80',
+              pointerEvents: 'none',
+              zIndex: 100,
+            }}
           />
         )}
       </AnimatePresence>
 
-      {/* Game Area */}
-      <DndContext
-        sensors={sensors}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        measuring={measuringConfig}
+      {/* Main Game Area - This div establishes the positioning context */}
+      <div 
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          overflow: 'hidden',
+        }}
       >
-        {/* Droppable Zones */}
-        {level.zones.map((zone) => (
-          <DroppableZone
-            key={zone.id}
-            zone={zone}
-            isActive={isDragging}
-          />
-        ))}
-
-        {/* Items */}
-        <AnimatePresence>
-          {gameState.items.map((item) => (
-            <DraggableItem
-              key={item.id}
-              item={item}
-              onClick={() => handleItemClick(item.id)}
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          {/* Drop zones - positioned relative to this container */}
+          {level.zones.map((zone) => (
+            <DroppableZone
+              key={zone.id}
+              zone={zone}
+              isActive={isDragging}
+              debug={debug}
             />
           ))}
-        </AnimatePresence>
-      </DndContext>
 
-      {/* Top UI Bar */}
-      <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start z-40">
-        {/* Level Info */}
+          {/* Game items - positioned relative to this container */}
+          <AnimatePresence mode="sync">
+            {visibleItems.map((item) => (
+              <DraggableItem
+                key={item.id}
+                item={item}
+                onClick={() => handleItemClick(item.id)}
+              />
+            ))}
+          </AnimatePresence>
+        </DndContext>
+      </div>
+
+      {/* Top UI */}
+      <div 
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          padding: '12px',
+          paddingTop: 'max(12px, env(safe-area-inset-top))',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          zIndex: 50,
+          pointerEvents: 'none',
+        }}
+      >
+        {/* Level info */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-black/60 backdrop-blur-sm rounded-2xl px-4 py-3 max-w-[60%]"
+          style={{
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(8px)',
+            borderRadius: '12px',
+            padding: '8px 12px',
+            maxWidth: '60%',
+            pointerEvents: 'auto',
+          }}
         >
-          <h2 className="text-lg font-bold text-white">
+          <h2 style={{ 
+            fontSize: 'clamp(14px, 4vw, 18px)', 
+            fontWeight: 'bold', 
+            color: 'white',
+            margin: 0,
+          }}>
             {isRTL ? `المستوى ${level.id}` : `Level ${level.id}`}
           </h2>
-          <p className="text-sm text-white/80">
+          <p style={{ 
+            fontSize: 'clamp(11px, 3vw, 14px)', 
+            color: 'rgba(255,255,255,0.8)',
+            margin: '4px 0 0 0',
+          }}>
             {isRTL ? level.descriptionAr : level.description}
           </p>
         </motion.div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-2">
-          {/* Pause Button */}
+        {/* Buttons */}
+        <div style={{ display: 'flex', gap: '8px', pointerEvents: 'auto' }}>
+          {/* Debug button (dev only) */}
+          {typeof window !== 'undefined' && (
+            <motion.button
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setDebug(!debug)}
+              style={{
+                width: 'clamp(36px, 10vw, 48px)',
+                height: 'clamp(36px, 10vw, 48px)',
+                background: debug ? 'rgba(168,85,247,0.8)' : 'rgba(0,0,0,0.6)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: '50%',
+                border: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 'clamp(14px, 4vw, 20px)',
+                cursor: 'pointer',
+              }}
+            >
+              🐛
+            </motion.button>
+          )}
+          
           <motion.button
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setShowPause(true)}
-            className="w-12 h-12 bg-black/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white text-xl"
+            style={{
+              width: 'clamp(36px, 10vw, 48px)',
+              height: 'clamp(36px, 10vw, 48px)',
+              background: 'rgba(0,0,0,0.6)',
+              backdropFilter: 'blur(8px)',
+              borderRadius: '50%',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 'clamp(14px, 4vw, 20px)',
+              cursor: 'pointer',
+            }}
           >
             ⏸️
           </motion.button>
 
-          {/* Hint Button */}
           <motion.button
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={handleHint}
-            className="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-2xl shadow-lg animate-pulse-glow"
+            style={{
+              width: 'clamp(36px, 10vw, 48px)',
+              height: 'clamp(36px, 10vw, 48px)',
+              background: '#eab308',
+              borderRadius: '50%',
+              border: 'none',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 'clamp(14px, 4vw, 20px)',
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(234,179,8,0.4)',
+            }}
           >
             💡
           </motion.button>
         </div>
       </div>
 
-      {/* Progress indicator */}
-      <div className="absolute bottom-4 left-4 right-4 z-40">
-        <div className="bg-black/60 backdrop-blur-sm rounded-full h-2 overflow-hidden">
+      {/* Bottom progress bar */}
+      <div 
+        style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          padding: '12px',
+          paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
+          zIndex: 50,
+        }}
+      >
+        <div style={{
+          background: 'rgba(0,0,0,0.6)',
+          backdropFilter: 'blur(8px)',
+          borderRadius: '999px',
+          height: '8px',
+          overflow: 'hidden',
+        }}>
           <motion.div
-            className="h-full bg-gradient-to-r from-primary-400 to-primary-600"
+            style={{
+              height: '100%',
+              background: 'linear-gradient(to right, #fb923c, #ea580c)',
+              borderRadius: '999px',
+            }}
             initial={{ width: 0 }}
             animate={{
               width: `${(gameState.completedSteps / level.solution.length) * 100}%`,
@@ -365,9 +541,28 @@ export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProp
             transition={{ type: 'spring', stiffness: 100 }}
           />
         </div>
+        
+        {/* Debug panel */}
+        {debug && (
+          <div style={{
+            marginTop: '8px',
+            background: 'rgba(0,0,0,0.85)',
+            borderRadius: '8px',
+            padding: '8px',
+            fontSize: '11px',
+            color: 'white',
+            fontFamily: 'monospace',
+          }}>
+            <div>Level: {level.id} | Items: {gameState.items.length} | Visible: {visibleItems.length}</div>
+            <div>Steps: {gameState.completedSteps}/{level.solution.length} | Hints: {gameState.hintsUsedThisLevel}</div>
+            <div style={{ marginTop: '4px', fontSize: '10px', color: '#9ca3af' }}>
+              {visibleItems.map(i => `${i.id}(${i.position.x},${i.position.y})`).join(' | ')}
+            </div>
+          </div>
+        )}
       </div>
 
-      {/* Hint Modal */}
+      {/* Modals */}
       <HintModal
         isOpen={showHint}
         hint={currentHintText}
@@ -377,7 +572,6 @@ export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProp
         isRTL={isRTL}
       />
 
-      {/* Level Complete Modal */}
       <LevelCompleteModal
         isOpen={showComplete}
         stars={earnedStars}
@@ -390,7 +584,6 @@ export default function GameCanvas({ level, onComplete, onExit }: GameCanvasProp
         isRTL={isRTL}
       />
 
-      {/* Pause Menu */}
       <PauseMenu
         isOpen={showPause}
         onResume={() => setShowPause(false)}

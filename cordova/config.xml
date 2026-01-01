@@ -3,73 +3,17 @@
     <name>Brain Puzzle</name>
     <description>A creative puzzle game that challenges your mind with tricky solutions!</description>
     <author email="dev@example.com" href="https://example.com">Hendi</author>
-    
     <content src="index.html" />
-    
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    
     <preference name="DisallowOverscroll" value="true" />
     <preference name="android-minSdkVersion" value="24" />
-    <preference name="android-targetSdkVersion" value="34" />
+    <preference name="android-targetSdkVersion" value="30" />
     <preference name="AndroidLaunchMode" value="singleTop" />
     <preference name="Orientation" value="portrait" />
     <preference name="Fullscreen" value="true" />
-    <preference name="StatusBarOverlaysWebView" value="true" />
-    <preference name="StatusBarBackgroundColor" value="#1a1a2e" />
-    <preference name="StatusBarStyle" value="lightcontent" />
-    <preference name="SplashMaintainAspectRatio" value="true" />
-    <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreenDelay" value="2000" />
-    <preference name="FadeSplashScreen" value="true" />
-    <preference name="FadeSplashScreenDuration" value="500" />
-    <preference name="BackgroundColor" value="0xff1a1a2e" />
-    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/icon/android/splash-icon.png" />
-    <preference name="AndroidWindowSplashScreenBackground" value="#1a1a2e" />
-    
-    <platform name="android">
-        <!-- Icons -->
-        <icon density="ldpi" src="res/icon/android/ldpi.png" />
-        <icon density="mdpi" src="res/icon/android/mdpi.png" />
-        <icon density="hdpi" src="res/icon/android/hdpi.png" />
-        <icon density="xhdpi" src="res/icon/android/xhdpi.png" />
-        <icon density="xxhdpi" src="res/icon/android/xxhdpi.png" />
-        <icon density="xxxhdpi" src="res/icon/android/xxxhdpi.png" />
-        
-        <!-- Adaptive Icons (Android 8+) -->
-        <icon background="@color/ic_launcher_background" density="ldpi" foreground="res/icon/android/ldpi-foreground.png" />
-        <icon background="@color/ic_launcher_background" density="mdpi" foreground="res/icon/android/mdpi-foreground.png" />
-        <icon background="@color/ic_launcher_background" density="hdpi" foreground="res/icon/android/hdpi-foreground.png" />
-        <icon background="@color/ic_launcher_background" density="xhdpi" foreground="res/icon/android/xhdpi-foreground.png" />
-        <icon background="@color/ic_launcher_background" density="xxhdpi" foreground="res/icon/android/xxhdpi-foreground.png" />
-        <icon background="@color/ic_launcher_background" density="xxxhdpi" foreground="res/icon/android/xxxhdpi-foreground.png" />
-        
-        <!-- Splash screens -->
-        <splash density="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
-        <splash density="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
-        <splash density="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
-        <splash density="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
-        <splash density="land-xxhdpi" src="res/screen/android/splash-land-xxhdpi.png" />
-        <splash density="land-xxxhdpi" src="res/screen/android/splash-land-xxxhdpi.png" />
-        <splash density="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
-        <splash density="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
-        <splash density="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
-        <splash density="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
-        <splash density="port-xxhdpi" src="res/screen/android/splash-port-xxhdpi.png" />
-        <splash density="port-xxxhdpi" src="res/screen/android/splash-port-xxxhdpi.png" />
-        
-        <!-- AdMob configuration -->
-        <config-file parent="/manifest/application" target="AndroidManifest.xml">
-            <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX" />
-        </config-file>
-    </platform>
-    
-    <!-- Plugins -->
     <plugin name="cordova-plugin-statusbar" spec="^3.0.0" />
-    <plugin name="cordova-plugin-splashscreen" spec="^6.0.0" />
     <plugin name="cordova-plugin-device" spec="^2.1.0" />
     <plugin name="cordova-plugin-screen-orientation" spec="^3.0.2" />
-    
-    <engine name="android" spec="^12.0.0" />
 </widget>

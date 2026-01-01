@@ -8,11 +8,25 @@
     "start": "next start",
     "lint": "next lint",
     "export": "next build",
+    "build:mobile": "next build && npx cap copy android",
+    "build:mobile:android": "npm run build:mobile && npx cap copy android && npx cap open android",
+    "build:apk": "npm run build:mobile && npx cap build android",
+    "build:release": "npm run build:mobile && npx cap build android --prod",
+    "build:release:apk": "npm run build:mobile && cd android && ./gradlew assembleRelease",
+    "build:release:bundle": "npm run build:mobile && cd android && ./gradlew bundleRelease",
+    "verify:apk": "jarsigner -verify -verbose android/app/build/outputs/apk/release/app-release.apk",
+    "mobile:android": "npx cap open android",
+    "mobile:sync": "npx cap sync",
     "build:cordova": "npm run export && cp -r out/* cordova/www/ && cp public/cordova-init.js cordova/www/ && cd cordova && cordova build android",
     "build:cordova:release": "npm run export && cp -r out/* cordova/www/ && cp public/cordova-init.js cordova/www/ && cd cordova && cordova build android --release",
     "build:cordova:debug": "npm run export && cp -r out/* cordova/www/ && cp public/cordova-init.js cordova/www/ && cd cordova && cordova run android"
   },
   "dependencies": {
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/device": "^8.0.0",
+    "@capacitor/screen-orientation": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/utilities": "^3.2.2",
     "@types/howler": "^2.2.12",
@@ -24,6 +38,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@capacitor/cli": "^7.4.4",
     "@types/node": "^22.10.5",
     "@types/react": "^18.3.17",
     "@types/react-dom": "^18.3.5",
